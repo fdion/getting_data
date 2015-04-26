@@ -15,10 +15,41 @@ Original data set source
 The original dataset [1] of Samsung Galaxy S5 accelerometer readings was downloaded from:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-It was downloaded using the command:
+It was downloaded in the directory where run_analysis.R is situated, using the command:
+
+```sh
 wget https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+```
+
 and extracted using:
+
+```sh
 unzip getdata*.zip
+```
+
+This will create the following directory structure:
+
+```sh
+$ls -R UCI\ HAR\ Dataset/
+
+README.txt  	activity_labels.txt	features.txt		features_info.txt	test			train
+
+UCI HAR Dataset//test:
+Inertial Signals	X_test.txt		subject_test.txt	y_test.txt
+
+UCI HAR Dataset//test/Inertial Signals:
+body_acc_x_test.txt	body_acc_z_test.txt	body_gyro_y_test.txt	total_acc_x_test.txt	total_acc_z_test.txt
+body_acc_y_test.txt	body_gyro_x_test.txt	body_gyro_z_test.txt	total_acc_y_test.txt
+
+UCI HAR Dataset//train:
+Inertial Signals	X_train.txt		subject_train.txt	y_train.txt
+
+UCI HAR Dataset//train/Inertial Signals:
+body_acc_x_train.txt	body_acc_z_train.txt	body_gyro_y_train.txt	total_acc_x_train.txt	total_acc_z_train.txt
+body_acc_y_train.txt	body_gyro_x_train.txt	body_gyro_z_train.txt	total_acc_y_train.txt
+```
+
+See also:
 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
 
@@ -28,19 +59,24 @@ Steps of the run_analysis.R script
 ==================================
 
 1 - Merges the training set:
+```sh
 UCI HAR Dataset/train/X_train.txt
 UCI HAR Dataset/train/subject_train.txt
 UCI HAR Dataset/train/y_train.txt
+```
 
 and the test set:
+```sh
 UCI HAR Dataset/test/X_test.txt
 UCI HAR Dataset/train/subject_test.txt
 UCI HAR Dataset/train/y_test.txt
+```
 
 to create one data set.
 
 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
 They are as follow:
+```sh
  [1] tBodyAcc-mean()-X           tBodyAcc-mean()-Y           tBodyAcc-mean()-Z          
  [4] tBodyAcc-std()-X            tBodyAcc-std()-Y            tBodyAcc-std()-Z           
  [7] tGravityAcc-mean()-X        tGravityAcc-mean()-Y        tGravityAcc-mean()-Z       
@@ -63,13 +99,21 @@ They are as follow:
 [58] fBodyGyro-std()-Z           fBodyAccMag-mean()          fBodyAccMag-std()          
 [61] fBodyBodyAccJerkMag-mean()  fBodyBodyAccJerkMag-std()   fBodyBodyGyroMag-mean()    
 [64] fBodyBodyGyroMag-std()      fBodyBodyGyroJerkMag-mean() fBodyBodyGyroJerkMag-std() 
+```
 
-All mean() and std() values are num between -1 and 1 (the maximum value the sensors can report)
+All mean() and std() values are floating points (num) between -1 and 1 (the maximum value the sensors can report)
 
 3 - Uses descriptive activity names to name the activities in the data set:
 
 Possible values are:
-LAYING SITTING STANDING WALKING WALKING_DOWNSTAIRS WALKING_UPSTAIRS
+```sh
+LAYING
+SITTING
+STANDING
+WALKING
+WALKING_DOWNSTAIRS
+WALKING_UPSTAIRS
+```
 
 4 - Appropriately labels the data set with descriptive variable names. 
 
@@ -81,6 +125,7 @@ See results in file "tidy_set.txt" as a tab delimited text file
 
 The columns are:
 
+```sh
  [1] Activity                    Subject                     tBodyAcc-mean()-X          
  [4] tBodyAcc-mean()-Y           tBodyAcc-mean()-Z           tBodyAcc-std()-X           
  [7] tBodyAcc-std()-Y            tBodyAcc-std()-Z            tGravityAcc-mean()-X       
@@ -104,3 +149,6 @@ The columns are:
 [61] fBodyAccMag-mean()          fBodyAccMag-std()           fBodyBodyAccJerkMag-mean() 
 [64] fBodyBodyAccJerkMag-std()   fBodyBodyGyroMag-mean()     fBodyBodyGyroMag-std()     
 [67] fBodyBodyGyroJerkMag-mean() fBodyBodyGyroJerkMag-std()
+```
+
+Column 1 is a text label described at point #3 above, column 2 is an integer representing a specific subject (individual) and columns 3 to 68 are floating point values within the -1, 1 range. X, Y and Z are the respective axis and std() represents standard deviation and finally mean(), the average value.
